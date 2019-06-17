@@ -1,0 +1,43 @@
+1 :rem program faceoff
+2 :
+10 rem copy routine
+11 for n=0 to 26: read dt
+12 :poke 828+n,dt:next
+13 data 169,000,160,208,133,095,132,096
+14 data 169,000,160,224,133,090,132,091
+15 data 169,000,160,064,133,088,132,089
+16 data 076,191,163:::::::::::::::::::::
+17 rem copy $d000-$dfff -> $3000-$3fff
+19 rem char set rom into ram
+20 poke 56334,peek(56334) and 254
+21 poke 1,peek(1) and 251
+22 sys 828 : rem  copy chars
+23 :
+24 poke 1,peek(1) or 4 : rem c rom off
+25 poke 56334,peek(56334) or 1:rem irq
+26 poke 53272,peek(53272) and 240 or 12 : rem char set ram at $3000
+99 :
+100 :
+130 for cnt=0 to 7:read dt
+131 poke 12288+(8*27)+cnt,dt:next
+133 data 54,127,73,127,119,34,62,0
+134 :
+200 print chr$(147):rem clr screen
+201 for n=0 to 30*39
+202 print;"[";
+203 next:print chr$(19);
+209 :
+210 poke 646,1:rem text color white
+220 rt$=chr$(29):lf$=chr$(157)
+225 up$=chr$(145):dw$=chr$(17)
+226 :
+230 print;"   ";lf$lf$lf$dw$;
+233 print;" [ ";lf$lf$lf$dw$;
+234 print;"   ";lf$lf$lf$up$up$;
+235 h%=rnd(1)*3
+237 v%=rnd(1)*3
+240 if h%=2 then print;rt$;
+245 if h%=0 then print;lf$;
+250 if v%=2 then print;dw$;
+255 if v%=0 then print;up$;
+259 goto 230
