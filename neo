@@ -1,0 +1,18 @@
+0 rem program neo
+1 poke 53280,0:poke 53281,0:poke 646,5
+8 :
+9 for s=0 to 254
+10 for n=0 to 999 step s+1
+12 poke 1024+n,s
+20 next:next
+30 for wt=1 to 1000:next
+31 :
+32 for n=1 to 39
+33 l$=l$+chr$(157):rem curs right
+34 dw$=dw$+chr$(17):rem curs down
+36 up$=up$+chr$(145):rem curs up
+37 next:cls$=chr$(147):rem clr scrn
+39 :
+40 print cls$;right$(dw$,2);
+41 print "user, are you"right$(dw$,1);
+42 print left$(l$,7);"?";right$(up$,2)
